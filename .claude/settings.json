@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "figma@claude-plugins-official": true
+  },
+  "description": "XiandaoDemo项目特定配置",
+  "projectType": "ios-swift",
+  "defaultPermissions": {
+    "allow": [
+      "Bash(pod install:*)",
+      "Bash(xcodebuild:*)",
+      "Edit(*.swift:*)",
+      "Edit(*.storyboard:*)",
+      "Read(*.plist:*)"
+    ]
+  },
+  "recommendedPlugins": [
+    "swift-lsp@claude-plugins-official"
+  ]
+}

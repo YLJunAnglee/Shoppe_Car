@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma To iOS Workflow"
+  short_description: "Turn Figma exports into UIKit app screens"
+  default_prompt: "Use $figma-to-ios-workflow to turn this Figma screen into a UIKit page in this repo."

@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/settings.local.json
+.claude/cache/
+.claude/sessions/
+
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+
+# Xcode user data
+xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods generated dependencies
+Pods/
+
+# Generated artifacts
+generated_swift/
+downloaded_images/
+
+# Local exports or quarantine
+asset_quarantine/
+

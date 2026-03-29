@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {
+    "plugin": "XiandaoDemo Selection Export",
+    "exportedAt": "2026-03-29T11:45:00.000Z",
+    "pageName": "Onboarding",
+    "selectionId": "101:1",
+    "selectionName": "Welcome Screen"
+  },
+  "assets": [],
+  "root": {
+    "id": "101:1",
+    "name": "Welcome Screen",
+    "type": "FRAME",
+    "visible": true,
+    "opacity": 1,
+    "rotation": 0,
+    "frame": {
+      "x": 0,
+      "y": 0,
+      "width": 375,
+      "height": 812
+    },
+    "absoluteFrame": {
+      "x": 0,
+      "y": 0,
+      "width": 375,
+      "height": 812
+    },
+    "fills": [
+      {
+        "type": "SOLID",
+        "visible": true,
+        "opacity": 1,
+        "blendMode": "NORMAL",
+        "color": "#FFFFFF",
+        "alpha": 1
+      }
+    ],
+    "strokes": [],
+    "strokeWeight": 0,
+    "strokeAlign": "CENTER",
+    "effects": [],
+    "cornerRadius": null,
+    "rectangleCornerRadii": null,
+    "layout": null,
+    "text": null,
+    "children": [
+      {
+        "id": "101:2",
+        "name": "Title",
+        "type": "TEXT",
+        "visible": true,
+        "opacity": 1,
+        "rotation": 0,
+        "frame": {
+          "x": 32,
+          "y": 96,
+          "width": 240,
+          "height": 72
+        },
+        "absoluteFrame": {
+          "x": 32,
+          "y": 96,
+          "width": 240,
+          "height": 72
+        },
+        "fills": [
+          {
+            "type": "SOLID",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "color": "#24252C",
+            "alpha": 1
+          }
+        ],
+        "strokes": [],
+        "strokeWeight": 0,
+        "strokeAlign": "CENTER",
+        "effects": [],
+        "cornerRadius": null,
+        "rectangleCornerRadii": null,
+        "layout": null,
+        "text": {
+          "characters": "Task Management\nMade Clear",
+          "fontFamily": "Lexend Deca",
+          "fontStyle": "SemiBold",
+          "fontSize": 30,
+          "textAlignHorizontal": "LEFT",
+          "textAlignVertical": "TOP",
+          "paragraphSpacing": 0,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 36
+          },
+          "letterSpacing": {
+            "unit": "PIXELS",
+            "value": 0
+          },
+          "textAutoResize": "HEIGHT",
+          "textCase": "ORIGINAL",
+          "textDecoration": "NONE",
+          "maxLines": null
+        },
+        "children": []
+      },
+      {
+        "id": "101:3",
+        "name": "Description",
+        "type": "TEXT",
+        "visible": true,
+        "opacity": 1,
+        "rotation": 0,
+        "frame": {
+          "x": 32,
+          "y": 192,
+          "width": 300,
+          "height": 54
+        },
+        "absoluteFrame": {
+          "x": 32,
+          "y": 192,
+          "width": 300,
+          "height": 54
+        },
+        "fills": [
+          {
+            "type": "SOLID",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "color": "#6E6A7C",
+            "alpha": 1
+          }
+        ],
+        "strokes": [],
+        "strokeWeight": 0,
+        "strokeAlign": "CENTER",
+        "effects": [],
+        "cornerRadius": null,
+        "rectangleCornerRadii": null,
+        "layout": null,
+        "text": {
+          "characters": "Export from Figma, validate in the repo, then generate a screen scaffold.",
+          "fontFamily": "Lexend Deca",
+          "fontStyle": "Regular",
+          "fontSize": 16,
+          "textAlignHorizontal": "LEFT",
+          "textAlignVertical": "TOP",
+          "paragraphSpacing": 0,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 24
+          },
+          "letterSpacing": {
+            "unit": "PIXELS",
+            "value": 0
+          },
+          "textAutoResize": "HEIGHT",
+          "textCase": "ORIGINAL",
+          "textDecoration": "NONE",
+          "maxLines": null
+        },
+        "children": []
+      },
+      {
+        "id": "101:4",
+        "name": "Primary Button",
+        "type": "RECTANGLE",
+        "visible": true,
+        "opacity": 1,
+        "rotation": 0,
+        "frame": {
+          "x": 24,
+          "y": 680,
+          "width": 327,
+          "height": 56
+        },
+        "absoluteFrame": {
+          "x": 24,
+          "y": 680,
+          "width": 327,
+          "height": 56
+        },
+        "fills": [
+          {
+            "type": "SOLID",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "color": "#5F33E1",
+            "alpha": 1
+          }
+        ],
+        "strokes": [],
+        "strokeWeight": 0,
+        "strokeAlign": "CENTER",
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 12,
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "color": "#5F33E1",
+            "alpha": 0.25,
+            "offset": {
+              "x": 0,
+              "y": 8
+            }
+          }
+        ],
+        "cornerRadius": 20,
+        "rectangleCornerRadii": [
+          20,
+          20,
+          20,
+          20
+        ],
+        "layout": null,
+        "text": null,
+        "children": [
+          {
+            "id": "101:5",
+            "name": "Primary Button Label",
+            "type": "TEXT",
+            "visible": true,
+            "opacity": 1,
+            "rotation": 0,
+            "frame": {
+              "x": 111,
+              "y": 18,
+              "width": 105,
+              "height": 20
+            },
+            "absoluteFrame": {
+              "x": 135,
+              "y": 698,
+              "width": 105,
+              "height": 20
+            },
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "color": "#FFFFFF",
+                "alpha": 1
+              }
+            ],
+            "strokes": [],
+            "strokeWeight": 0,
+            "strokeAlign": "CENTER",
+            "effects": [],
+            "cornerRadius": null,
+            "rectangleCornerRadii": null,
+            "layout": null,
+            "text": {
+              "characters": "Start Workflow",
+              "fontFamily": "Lexend Deca",
+              "fontStyle": "SemiBold",
+              "fontSize": 18,
+              "textAlignHorizontal": "CENTER",
+              "textAlignVertical": "CENTER",
+              "paragraphSpacing": 0,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 20
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": 0
+              },
+              "textAutoResize": "WIDTH_AND_HEIGHT",
+              "textCase": "ORIGINAL",
+              "textDecoration": "NONE",
+              "maxLines": 1
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
