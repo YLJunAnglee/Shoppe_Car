@@ -78,3 +78,8 @@ Replace `iPhone 15` in the `-destination` flag with the desired simulator name (
 ### 版本控制
 - `.gitignore`文件已包含Claude配置忽略规则
 - `settings.local.json`不应提交到版本控制
+
+### GitHub 接线工作流
+- 首次推送、远程绑定、SSH 切换、GitHub MCP 校验、`git push` 失败排障时，优先使用 `.claude/skills/git-github-bootstrap/SKILL.md`
+- 需要代理全流程接管仓库接线和推送时，使用 `.claude/agents/git-github-operator.md`
+- 不要默认把本地目录名等同于远程仓库名；先以 `git remote -v` 和用户确认结果为准
