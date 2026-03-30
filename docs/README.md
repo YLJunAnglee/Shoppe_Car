@@ -43,6 +43,7 @@ YYYY-MM-DD-功能名.md
   - `checklists/development-done-checklist.md`
 - 适配指南：
   - `guides/ios-multi-device-layout.md`
+  - `guides/github-mcp-docker-setup.md`
 - 当前交接：
   - `handoff/current-status.md`
 - 模板：
