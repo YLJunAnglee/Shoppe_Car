@@ -62,6 +62,8 @@ metadata:
 - 绝对定位太多时，收敛成更稳定的 `SnapKit` 约束
 - 表单页、长页面、按钮较多的页面默认加 `UIScrollView`
 - 纵向布局优先改成“模块相对约束 + 档位化间距”，而不是继续保留整页绝对坐标
+- `UIStackView` 的 `arrangedSubview` 不直接再补同轴贴边 inset 约束；需要内容左右留白时，优先包一层 wrapper view，再约束内部 label/button
+- 如果日志里同时出现 `UISV-alignment`、`UISV-canvas-connection` 和 `SnapKit.LayoutConstraint`，优先判断为 stack view 内部约束与手写边距约束重复
 - 当前仓库默认使用 3 档高度策略：
   - `compact`：小屏，约 `667pt` 及以下
   - `regular`：主流全面屏，约 `700-899pt`
@@ -88,6 +90,7 @@ metadata:
 - 页面实现优先 `UIKit`
 - UI 布局约束统一使用 `SnapKit`
 - 页面内不要混用 `SnapKit` 和手写 Auto Layout
+- `UIStackView` 负责排列的轴向约束不要再在 `arrangedSubview` 上重复声明；额外内边距用 wrapper 或 stack view margins 表达
 - 多机型适配默认遵循：
   - 视觉基准默认是 `375 x 812`
   - 小屏优先保证可滚动、不裁切

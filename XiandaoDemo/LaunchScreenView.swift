@@ -25,6 +25,7 @@ final class LaunchScreenView: UIView {
     private let buttonSpacer = UIView()
     private let bottomSpacer = UIView()
     private let illustrationWrapper = UIView()
+    private let descriptionWrapper = UIView()
     private let existingAccountWrapper = UIView()
     private let existingAccountContentView = UIView()
 
@@ -79,7 +80,7 @@ final class LaunchScreenView: UIView {
         [
             illustrationContainer,
             titleLabel,
-            descriptionLabel,
+            descriptionWrapper,
             primaryButton,
             existingAccountContentView
         ]
@@ -119,7 +120,7 @@ final class LaunchScreenView: UIView {
         mainStack.addArrangedSubview(topSpacer)
         mainStack.addArrangedSubview(illustrationWrapper)
         mainStack.addArrangedSubview(titleLabel)
-        mainStack.addArrangedSubview(descriptionLabel)
+        mainStack.addArrangedSubview(descriptionWrapper)
         mainStack.addArrangedSubview(buttonSpacer)
         mainStack.addArrangedSubview(primaryButton)
         mainStack.addArrangedSubview(existingAccountWrapper)
@@ -127,6 +128,7 @@ final class LaunchScreenView: UIView {
 
         illustrationWrapper.addSubview(illustrationContainer)
         illustrationContainer.addSubview(illustrationView)
+        descriptionWrapper.addSubview(descriptionLabel)
 
         existingAccountWrapper.addSubview(existingAccountContentView)
         existingAccountContentView.addSubview(existingAccountLabel)
@@ -179,8 +181,14 @@ final class LaunchScreenView: UIView {
         }
 
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(metrics.descriptionHorizontalInset)
-            make.trailing.equalToSuperview().inset(metrics.descriptionHorizontalInset)
+            make.edges.equalToSuperview().inset(
+                UIEdgeInsets(
+                    top: 0,
+                    left: metrics.descriptionHorizontalInset,
+                    bottom: 0,
+                    right: metrics.descriptionHorizontalInset
+                )
+            )
         }
 
         buttonSpacer.snp.makeConstraints { make in

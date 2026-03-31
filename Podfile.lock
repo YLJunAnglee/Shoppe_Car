@@ -1,16 +1,33 @@
 PODS:
+  - Alamofire (5.11.1)
+  - Mantis (2.31.0)
   - SnapKit (4.2.0)
 
 DEPENDENCIES:
+  - Alamofire
+  - Mantis (from `https://github.com/guoyingtao/Mantis.git`, tag `v2.31.1`)
   - SnapKit
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - SnapKit
 
+EXTERNAL SOURCES:
+  Mantis:
+    :git: https://github.com/guoyingtao/Mantis.git
+    :tag: v2.31.1
+
+CHECKOUT OPTIONS:
+  Mantis:
+    :git: https://github.com/guoyingtao/Mantis.git
+    :tag: v2.31.1
+
 SPEC CHECKSUMS:
+  Alamofire: eec6cd8f73b242b59e34153a606a909eb9864b14
+  Mantis: 6f18a0f0d668c291e437305db30e41a594bc5cfd
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: 82b9cdc31df1eed6c1e44057a35510ae13df07be
+PODFILE CHECKSUM: a8b07f74280ee2c527b60828dd6334c71c97820c
 
 COCOAPODS: 1.16.2

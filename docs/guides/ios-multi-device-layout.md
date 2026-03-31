@@ -52,6 +52,8 @@
 - 按左右内边距控制内容宽度
 - 尽量避免写死整块固定宽度
 - 如果内容在大屏上过宽，优先收紧边距或限制最大宽度
+- `UIStackView` 的 `arrangedSubview` 不直接再补同轴 `leading/trailing` 或 `top/bottom` 贴边约束
+- 如果某个模块既需要被 `UIStackView` 排列，又需要额外内容 inset，优先增加 wrapper view，再对 wrapper 内的真实内容做约束
 
 ### 长页面
 
@@ -89,6 +91,7 @@
 - 大屏：是否出现明显漂浮、空洞、纵向比例失衡
 - 是否仍残留大量固定 `y` 坐标
 - 是否把 `SnapKit` 和原生 Auto Layout 混用了
+- 如果控制台出现 `UISV-alignment` 或 `UISV-canvas-connection` 相关冲突，是否误给 `arrangedSubview` 重复添加了同轴边距约束
 
 ## 6. 当前已按此方案改造的页面
 

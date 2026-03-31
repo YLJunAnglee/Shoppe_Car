@@ -4,6 +4,8 @@ target 'XiandaoDemo' do
   use_frameworks!
 
   pod 'SnapKit'
+  pod 'Alamofire'
+  pod 'Mantis', :git => 'https://github.com/guoyingtao/Mantis.git', :tag => 'v2.31.1'
 
 end
 

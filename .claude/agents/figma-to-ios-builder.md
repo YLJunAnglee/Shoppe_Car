@@ -23,6 +23,7 @@
    - 用 `compact / regular / expanded` 三档高度控制核心间距
    - 表单页优先使用 `UIScrollView`
    - 纵向链路优先使用相对约束，不长期保留一串固定 `y`
+   - `UIStackView` 的 `arrangedSubview` 不要直接再加同轴贴边 inset 约束；需要额外内边距时，优先加 wrapper view，或改用 `layoutMarginsRelativeArrangement`
 6. 接入工程时，优先遵循现有入口、导航和 session 结构
 7. 编译失败先判定是代码问题、资源问题还是本机 Xcode 环境问题
 8. 资源位置异常时，先检查导出资源是否裁剪、是否带留白、是否应该按真实像素尺寸摆放
@@ -60,6 +61,8 @@
 - 复杂背景如果继续按 JSON frame 去摆单独导出的裁剪资源，位置通常会错
 - 页面截图和资源图看起来不一致时，优先排查资源导出方式，再排查约束
 - 页面在一个机型上对齐，不代表已经交付；至少要覆盖小屏、主流屏、大屏 3 档
+- `UIStackView` 内如果出现 `UISV-alignment`、`UISV-canvas-connection` 和 `SnapKit` 约束同时报冲突，先检查是否对 `arrangedSubview` 重复加了 `leading/trailing` 或 `top/bottom`
+- 说明文字、标签组这类需要左右留白的内容，不要直接给 `arrangedSubview` 本体补额外边距；优先包一层容器后再约束内部子视图
 
 ## 交付标准
 

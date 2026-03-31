@@ -78,6 +78,10 @@ final class CreateAccountView: UIView {
     var onDoneButtonTapped: (() -> Void)?
     var onCancelButtonTapped: (() -> Void)?
     var onUploadPhotoTapped: (() -> Void)?
+    var onEmailChanged: ((String) -> Void)?
+    var onPasswordChanged: ((String) -> Void)?
+    var onPhoneChanged: ((String) -> Void)?
+    private weak var activeInputContainerView: UIView?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -129,6 +133,11 @@ final class CreateAccountView: UIView {
 
         doneButton.titleLabel?.font = UIFont(name: "NunitoSans-Bold", size: metrics.doneButtonFontSize) ?? .systemFont(ofSize: metrics.doneButtonFontSize, weight: .bold)
         cancelButton.titleLabel?.font = UIFont(name: "NunitoSans-Light", size: metrics.cancelFontSize) ?? .systemFont(ofSize: metrics.cancelFontSize, weight: .light)
+        updateDoneButtonState(isEnabled: false)
+
+        emailField.returnKeyType = .next
+        passwordField.returnKeyType = .next
+        phoneField.returnKeyType = .done
     }
 
     private func setupConstraints() {
@@ -209,6 +218,42 @@ final class CreateAccountView: UIView {
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         uploadPhotoButton.addTarget(self, action: #selector(uploadPhotoTapped), for: .touchUpInside)
+
+        emailField.onTextChanged = { [weak self] text in
+            self?.onEmailChanged?(text)
+        }
+
+        passwordField.onTextChanged = { [weak self] text in
+            self?.onPasswordChanged?(text)
+        }
+
+        phoneField.onTextChanged = { [weak self] text in
+            self?.onPhoneChanged?(text)
+        }
+
+        emailField.onEditingDidBegin = { [weak self] in
+            self?.activeInputContainerView = self?.emailField
+        }
+
+        passwordField.onEditingDidBegin = { [weak self] in
+            self?.activeInputContainerView = self?.passwordField
+        }
+
+        phoneField.onEditingDidBegin = { [weak self] in
+            self?.activeInputContainerView = self?.phoneField
+        }
+
+        emailField.onReturnKeyTapped = { [weak self] in
+            self?.passwordField.becomeInputFirstResponder()
+        }
+
+        passwordField.onReturnKeyTapped = { [weak self] in
+            self?.phoneField.becomeInputFirstResponder()
+        }
+
+        phoneField.onReturnKeyTapped = { [weak self] in
+            self?.phoneField.resignInputFirstResponder()
+        }
     }
 
     @objc private func doneButtonTapped() {
@@ -221,6 +266,54 @@ final class CreateAccountView: UIView {
 
     @objc private func uploadPhotoTapped() {
         onUploadPhotoTapped?()
+    }
+
+    func updateAvatarImage(_ image: UIImage?) {
+        if let image {
+            uploadPhotoImageView.image = image
+            uploadPhotoImageView.contentMode = .scaleAspectFill
+            uploadPhotoImageView.layer.cornerRadius = metrics.uploadSize / 2
+            uploadPhotoImageView.layer.masksToBounds = true
+            return
+        }
+
+        uploadPhotoImageView.image = UIImage(named: "upload_photo")
+        uploadPhotoImageView.contentMode = .scaleAspectFit
+        uploadPhotoImageView.layer.cornerRadius = 0
+        uploadPhotoImageView.layer.masksToBounds = false
+    }
+
+    func updateDoneButtonState(isEnabled: Bool) {
+        doneButton.isEnabled = isEnabled
+        doneButton.alpha = isEnabled ? 1 : 0.55
+    }
+
+    func updateForKeyboard(
+        keyboardFrameInView: CGRect,
+        animationDuration: TimeInterval,
+        animationOptions: UIView.AnimationOptions
+    ) {
+        let keyboardFrameInSelf = convert(keyboardFrameInView, from: nil)
+        let overlapHeight = max(0, bounds.maxY - keyboardFrameInSelf.minY)
+        let bottomInset = overlapHeight > 0 ? max(0, overlapHeight - safeAreaInsets.bottom) + 20 : 0
+
+        UIView.animate(
+            withDuration: animationDuration,
+            delay: 0,
+            options: [animationOptions, .beginFromCurrentState],
+            animations: {
+                self.scrollView.contentInset.bottom = bottomInset
+                self.scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
+                self.scrollToActiveInputIfNeeded()
+            }
+        )
+    }
+
+    private func scrollToActiveInputIfNeeded() {
+        guard let activeInputContainerView else { return }
+
+        let targetRect = activeInputContainerView.convert(activeInputContainerView.bounds, to: scrollView)
+        scrollView.scrollRectToVisible(targetRect.insetBy(dx: 0, dy: -24), animated: false)
     }
 }
 
@@ -290,6 +383,15 @@ private struct CreateAccountMetrics {
 private final class CreateAccountInputField: UIView {
     private let textField = UITextField()
     private let trailingImageView: UIImageView?
+    var onTextChanged: ((String) -> Void)?
+    var onReturnKeyTapped: (() -> Void)?
+    var onEditingDidBegin: (() -> Void)?
+
+    var returnKeyType: UIReturnKeyType = .default {
+        didSet {
+            textField.returnKeyType = returnKeyType
+        }
+    }
 
     init(placeholder: String, trailingSystemImageName: String? = nil) {
         if let trailingSystemImageName {
@@ -303,6 +405,14 @@ private final class CreateAccountInputField: UIView {
 
         super.init(frame: .zero)
         textField.placeholder = placeholder
+        if placeholder == "Email" {
+            textField.keyboardType = .emailAddress
+            textField.autocapitalizationType = .none
+            textField.textContentType = .emailAddress
+        } else if placeholder == "Password" {
+            textField.isSecureTextEntry = true
+            textField.textContentType = .newPassword
+        }
         setupUI()
         setupConstraints()
     }
@@ -322,6 +432,9 @@ private final class CreateAccountInputField: UIView {
             string: textField.placeholder ?? "",
             attributes: [.foregroundColor: UIColor(hex: "#D2D2D2")]
         )
+        textField.autocorrectionType = .no
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
 
         addSubview(textField)
 
@@ -349,6 +462,25 @@ private final class CreateAccountInputField: UIView {
                 make.centerY.equalToSuperview()
             }
         }
+    }
+
+    @objc private func textDidChange() {
+        onTextChanged?(textField.text ?? "")
+    }
+
+    func becomeInputFirstResponder() {
+        textField.becomeFirstResponder()
+    }
+}
+
+extension CreateAccountInputField: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        onEditingDidBegin?()
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onReturnKeyTapped?()
+        return false
     }
 }
 
@@ -380,8 +512,20 @@ private final class CreateAccountPhoneField: UIView {
         textField.borderStyle = .none
         textField.textColor = UIColor(hex: "#202020")
         textField.font = UIFont(name: "Poppins-Medium", size: 14) ?? .systemFont(ofSize: 14, weight: .medium)
+        textField.keyboardType = .numbersAndPunctuation
+        textField.autocorrectionType = .no
+        textField.textContentType = .telephoneNumber
         return textField
     }()
+    var onTextChanged: ((String) -> Void)?
+    var onReturnKeyTapped: (() -> Void)?
+    var onEditingDidBegin: (() -> Void)?
+
+    var returnKeyType: UIReturnKeyType = .default {
+        didSet {
+            textField.returnKeyType = returnKeyType
+        }
+    }
 
     init(placeholder: String) {
         super.init(frame: .zero)
@@ -402,11 +546,13 @@ private final class CreateAccountPhoneField: UIView {
         backgroundColor = UIColor(hex: "#F8F8F8")
         layer.cornerRadius = 27.67
 
+        textField.delegate = self
         addSubview(countryButton)
         addSubview(flagLabel)
         addSubview(chevronImageView)
         addSubview(dividerView)
         addSubview(textField)
+        textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 
     private func setupConstraints() {
@@ -438,5 +584,28 @@ private final class CreateAccountPhoneField: UIView {
             make.trailing.equalToSuperview().inset(31.62)
             make.centerY.equalToSuperview()
         }
+    }
+
+    @objc private func textDidChange() {
+        onTextChanged?(textField.text ?? "")
+    }
+
+    func becomeInputFirstResponder() {
+        textField.becomeFirstResponder()
+    }
+
+    func resignInputFirstResponder() {
+        textField.resignFirstResponder()
+    }
+}
+
+extension CreateAccountPhoneField: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        onEditingDidBegin?()
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onReturnKeyTapped?()
+        return false
     }
 }
